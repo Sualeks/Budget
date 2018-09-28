@@ -9,8 +9,8 @@ namespace Budget.Models
     {
         public IQueryable<Product> Products => new List<Product>
         {
-            new Product { Name = "Хлеб", Price = 50 },
-            new Product { Name = "Сыр", Price = 250 }
+            new Product { Name = "Хлеб", Description = "Delicios" },
+            new Product { Name = "Сыр", Description = "Delicios" }
         }.AsQueryable();
     }
 }

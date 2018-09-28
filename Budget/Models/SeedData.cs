@@ -14,9 +14,10 @@ namespace Budget.Models
             context.Database.Migrate();
             if (!context.Products.Any())
             {
-                context.Products.AddRange(new Product { },
-                    new Product { },
-                    new Product { }
+                context.Products.AddRange(
+                    new Product { CategoryID = 1, Name = "Хлеб", Description = "Delicious" },
+                    new Product { CategoryID = 1, Name = "Milk", Description = "Delicious" },
+                    new Product { CategoryID = 1, Name = "Eggs", Description = "Delicious" }
                     );
                 context.SaveChanges();
             }

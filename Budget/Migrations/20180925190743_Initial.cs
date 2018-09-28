@@ -1,5 +1,4 @@
-﻿using System;
-using Microsoft.EntityFrameworkCore.Metadata;
+﻿using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Budget.Migrations
@@ -16,10 +15,7 @@ namespace Budget.Migrations
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     Name = table.Column<string>(nullable: true),
                     Description = table.Column<string>(nullable: true),
-                    BuyDate = table.Column<DateTime>(nullable: false),
-                    UserID = table.Column<int>(nullable: false),
-                    CategoryID = table.Column<int>(nullable: false),
-                    Price = table.Column<decimal>(nullable: false)
+                    CategoryID = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
