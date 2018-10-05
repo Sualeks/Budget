@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace Budget.Models
 {
-    public class EFProductRepository : IProductRepository
+    public class EFProductRepository : IProductRepository, ICategoryRepository, ICategoryTypeRepository
     {
         private ApplicationDbContext context;
 
@@ -15,5 +15,9 @@ namespace Budget.Models
         }
 
         public IQueryable<Product> Products => context.Products;
+
+        public IQueryable<Category> Categories => context.Categories;
+
+        public IQueryable<CategoryType> CategoryTypes => context.CategoryTypes;
     }
 }

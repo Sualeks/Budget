@@ -28,7 +28,7 @@ namespace Budget.Tests
             productController.pageSize = 3;
 
             //Action
-            IEnumerable<Product> result = (productController.List(2).ViewData.Model as ProductListViewModel).Products;
+            IEnumerable<Product> result = (productController.List("",2).ViewData.Model as ProductListViewModel).Products;
 
             //Assert 
             Product[] prArray = result.ToArray();
@@ -55,7 +55,7 @@ namespace Budget.Tests
             ProductController controller = new ProductController(mock.Object) { pageSize = 3 };
 
             //Action
-            ProductListViewModel result = controller.List(2).ViewData.Model as ProductListViewModel;
+            ProductListViewModel result = controller.List("",2).ViewData.Model as ProductListViewModel;
 
             //Assert
             PagingInfo pageInfo = result.PagingInfo;

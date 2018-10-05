@@ -15,7 +15,7 @@ namespace Budget.Controllers
             repository = repo;
         }
 
-        public ViewResult List(int prPage = 1) => View(new ProductListViewModel
+        public ViewResult List(string category, int prPage = 1) => View(new ProductListViewModel
         {
             Products = repository.Products
             .OrderBy(t => t.ProductID)
@@ -26,7 +26,8 @@ namespace Budget.Controllers
                 CurrentPage = prPage,
                 ItemsPerPage = pageSize,
                 TotalItems = repository.Products.Count()
-            }
+            },
+            CurrentCategory = category
         });
 
         public IActionResult Index()

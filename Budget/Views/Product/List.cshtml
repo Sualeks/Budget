@@ -2,9 +2,11 @@
 
 @foreach(var item in Model.Products)
 {
-    <div>
-        <h3>@item.Name</h3>
-        <h4>@item.Description</h4>
-    </div>
+    <partial name="ProductSummary" model="@item" />
 }
-<div page-model="@Model.PagingInfo" page-action="List"></div>
+<div page-model="@Model.PagingInfo" page-action="List" page-classes-enabled="true"
+    page-class="btn" page-class-normal="btn-secondary"
+    page-class-selected="btn-primary" page-url-category="@Model.CurrentCategory"
+class="btn-group pull-right m-1">
+
+</div>

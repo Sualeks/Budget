@@ -25,6 +25,8 @@ namespace Budget
             string conString = Configuration["ConnectionStrings:DefaultConnection"];
             services.AddDbContext<ApplicationDbContext>(options => { options.EnableSensitiveDataLogging(true); options.UseSqlServer(conString); });
             services.AddTransient<IProductRepository, EFProductRepository>();
+            services.AddTransient<ICategoryRepository, EFProductRepository>();
+            services.AddTransient<ICategoryTypeRepository, EFProductRepository>();
             services.AddMvc();
         }
 
@@ -38,9 +40,25 @@ namespace Budget
                 app.UseStaticFiles();
                 app.UseMvc(routes => {
                     routes.MapRoute(
-                        name: "pagination",
-                        template: "Products/Page{prPage}",
+                        name: null,
+                        template: "{category}/Page{prPage}",
                         defaults: new { Controller = "Product", Action = "List"});
+
+                    routes.MapRoute(
+                        name: null,
+                        template: "Page{prPage:int}",
+                        defaults: new { Controller = "Product", Action = "List", category = "" });
+
+                    routes.MapRoute(
+                        name: null,
+                        template: "{category}",
+                        defaults: new { Controller = "Product", Action = "List", prPage = 1 });
+
+                    routes.MapRoute(
+                        name: null,
+                        template: "",
+                        defaults: new { Controller = "Product", Action = "List", category = "", prPage = 1 });
+
                     routes.MapRoute(
                         name: "default",
                         template: "{controller=Product}/{action=List}/{id?}");
