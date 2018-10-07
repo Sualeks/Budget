@@ -5,8 +5,7 @@ using System.Threading.Tasks;
 
 namespace Budget.Models
 {
-    public interface ICategoryTypeRepository
+    public interface IUserRepository
     {
-        IQueryable<CategoryType> CategoryTypes { get; }
     }
 }

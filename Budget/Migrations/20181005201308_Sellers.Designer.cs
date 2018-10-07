@@ -4,14 +4,16 @@ using Budget.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Budget.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20181005201308_Sellers")]
+    partial class Sellers
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -82,13 +84,9 @@ namespace Budget.Migrations
 
                     b.Property<string>("Name");
 
-                    b.Property<int?>("PurchaseID");
-
                     b.HasKey("ProductID");
 
                     b.HasIndex("CategoryID");
-
-                    b.HasIndex("PurchaseID");
 
                     b.ToTable("Products");
                 });
@@ -111,8 +109,6 @@ namespace Budget.Migrations
 
                     b.HasKey("PurchaseID");
 
-                    b.HasIndex("PurchaseDocumentID");
-
                     b.ToTable("Purchases");
                 });
 
@@ -124,6 +120,8 @@ namespace Budget.Migrations
 
                     b.Property<int>("BuyerID");
 
+                    b.Property<int>("ProductID");
+
                     b.Property<DateTime>("PurchaseDT");
 
                     b.Property<int>("SellerID");
@@ -131,10 +129,6 @@ namespace Budget.Migrations
                     b.Property<decimal>("TotalCost");
 
                     b.HasKey("PurchaseDocumentID");
-
-                    b.HasIndex("BuyerID");
-
-                    b.HasIndex("SellerID");
 
                     b.ToTable("PurchaseDocuments");
                 });
@@ -168,31 +162,6 @@ namespace Budget.Migrations
                     b.HasOne("Budget.Models.Category", "Category")
                         .WithMany()
                         .HasForeignKey("CategoryID")
-                        .OnDelete(DeleteBehavior.Cascade);
-
-                    b.HasOne("Budget.Models.Purchase")
-                        .WithMany("Products")
-                        .HasForeignKey("PurchaseID");
-                });
-
-            modelBuilder.Entity("Budget.Models.Purchase", b =>
-                {
-                    b.HasOne("Budget.Models.PurchaseDocument", "PurchaseDocument")
-                        .WithMany("Purchases")
-                        .HasForeignKey("PurchaseDocumentID")
-                        .OnDelete(DeleteBehavior.Cascade);
-                });
-
-            modelBuilder.Entity("Budget.Models.PurchaseDocument", b =>
-                {
-                    b.HasOne("Budget.Models.Buyer", "Buyer")
-                        .WithMany()
-                        .HasForeignKey("BuyerID")
-                        .OnDelete(DeleteBehavior.Cascade);
-
-                    b.HasOne("Budget.Models.Seller", "Seller")
-                        .WithMany()
-                        .HasForeignKey("SellerID")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 #pragma warning restore 612, 618

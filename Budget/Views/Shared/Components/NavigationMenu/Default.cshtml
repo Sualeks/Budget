@@ -1,0 +1,19 @@
+﻿@model Dictionary<int, string>
+
+<a class="btn btn-block btn-secondary"
+   asp-action="Purchase"
+   asp-controller="Purchase"
+   asp-route-period="">
+    Home
+</a>
+@foreach (var item in Model)
+{
+    <a class="btn btn-block btn-secondary"
+       asp-action="Purchase"
+       asp-controller="Purchase"
+       asp-route-period="@item.Key"
+       asp-route-periodNum ="1">
+        @item.Value
+    </a>
+}
+

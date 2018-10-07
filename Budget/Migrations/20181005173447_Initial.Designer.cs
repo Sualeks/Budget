@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Budget.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20181004160828_Initial")]
+    [Migration("20181005173447_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -37,8 +37,6 @@ namespace Budget.Migrations
 
                     b.HasKey("CategoryID");
 
-                    b.HasIndex("CategoryTypeID");
-
                     b.ToTable("Categories");
                 });
 
@@ -48,11 +46,15 @@ namespace Budget.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<int?>("CategoryID");
+
                     b.Property<string>("Description");
 
                     b.Property<string>("Name");
 
                     b.HasKey("CategoryTypeID");
+
+                    b.HasIndex("CategoryID");
 
                     b.ToTable("CategoryTypes");
                 });
@@ -76,12 +78,11 @@ namespace Budget.Migrations
                     b.ToTable("Products");
                 });
 
-            modelBuilder.Entity("Budget.Models.Category", b =>
+            modelBuilder.Entity("Budget.Models.CategoryType", b =>
                 {
-                    b.HasOne("Budget.Models.CategoryType", "CategoryType")
-                        .WithMany()
-                        .HasForeignKey("CategoryTypeID")
-                        .OnDelete(DeleteBehavior.Cascade);
+                    b.HasOne("Budget.Models.Category")
+                        .WithMany("CategoryTypes")
+                        .HasForeignKey("CategoryID");
                 });
 
             modelBuilder.Entity("Budget.Models.Product", b =>

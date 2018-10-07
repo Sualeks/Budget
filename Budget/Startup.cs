@@ -25,8 +25,8 @@ namespace Budget
             string conString = Configuration["ConnectionStrings:DefaultConnection"];
             services.AddDbContext<ApplicationDbContext>(options => { options.EnableSensitiveDataLogging(true); options.UseSqlServer(conString); });
             services.AddTransient<IProductRepository, EFProductRepository>();
-            services.AddTransient<ICategoryRepository, EFProductRepository>();
-            services.AddTransient<ICategoryTypeRepository, EFProductRepository>();
+            services.AddTransient<IPurchaseRepository, EFPurchaseRepository>();
+            services.AddTransient<IContragentRepository, EFContrageltRepository>();
             services.AddMvc();
         }
 
@@ -57,7 +57,7 @@ namespace Budget
                     routes.MapRoute(
                         name: null,
                         template: "",
-                        defaults: new { Controller = "Product", Action = "List", category = "", prPage = 1 });
+                        defaults: new { Controller = "Purchase", Action = "Purchase", period = 1, periodNum = 1 });
 
                     routes.MapRoute(
                         name: "default",
