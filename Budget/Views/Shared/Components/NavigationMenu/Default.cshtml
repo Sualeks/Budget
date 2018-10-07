@@ -1,18 +1,21 @@
-﻿@model Dictionary<int, string>
+﻿@model NavigationMenuViewModel
 
 <a class="btn btn-block btn-secondary"
    asp-action="Purchase"
    asp-controller="Purchase"
-   asp-route-period="">
+       asp-route-period="@Model.Info.PeriodType"
+       asp-route-periodNum="@Model.Info.CurrentPeriod"
+       asp-route-year="@Model.Info.CurrentYear">
     Home
 </a>
-@foreach (var item in Model)
+@foreach (var item in Model.Periods)
 {
     <a class="btn btn-block btn-secondary"
        asp-action="Purchase"
        asp-controller="Purchase"
        asp-route-period="@item.Key"
-       asp-route-periodNum ="1">
+       asp-route-periodNum="@Model.Info.CurrentPeriodConvertToType(item.Key)"
+       asp-route-year="@Model.Info.CurrentYear">
         @item.Value
     </a>
 }

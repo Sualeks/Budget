@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.AspNetCore.Mvc.Routing;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using Microsoft.AspNetCore.Razor.TagHelpers;
+using System;
 using System.Collections.Generic;
 
 namespace Budget.Infrastructure
@@ -29,13 +30,13 @@ namespace Budget.Infrastructure
         [HtmlAttributeName(DictionaryAttributePrefix = "period-url-")]
         public Dictionary<string, object> PeriodUrlValues { get; set; } = new Dictionary<string, object>();
 
-        public bool PeriodClassesEnabled { get; set; }
+        //public bool PeriodClassesEnabled { get; set; }
 
         public string PeriodClass { get; set; }
 
-        public string PeriodClassNormal { get; set; }
+        //public string PeriodClassNormal { get; set; }
 
-        public string PeriodClassSelected { get; set; }
+        //public string PeriodClassSelected { get; set; }
 
         public override void Process(TagHelperContext context, TagHelperOutput output)
         {
@@ -44,8 +45,10 @@ namespace Budget.Infrastructure
 
             TagBuilder tag = new TagBuilder("a");
             PeriodUrlValues["period"] = PeriodModel.PeriodType;
-            PeriodUrlValues["periodNum"] = PeriodModel.CurrentPeriod - 1;
-            tag.Attributes["href"] = urlHelper.Action(PageAction, PeriodUrlValues);            
+            PeriodUrlValues["periodNum"] = PeriodModel.CurrentPeriod == 1 ? PeriodModel.TotalPrevPeriods : PeriodModel.CurrentPeriod - 1;
+            PeriodUrlValues["year"] = PeriodModel.CurrentPeriod == 1 ? PeriodModel.CurrentYear - 1 : PeriodModel.CurrentYear;
+            tag.Attributes["href"] = urlHelper.Action(PageAction, PeriodUrlValues);
+            tag.AddCssClass(PeriodClass);
             tag.InnerHtml.Append(" < ");
             result.InnerHtml.AppendHtml(tag);
 
@@ -55,8 +58,10 @@ namespace Budget.Infrastructure
 
             tag = new TagBuilder("a");
             PeriodUrlValues["period"] = PeriodModel.PeriodType;
-            PeriodUrlValues["periodNum"] = PeriodModel.CurrentPeriod + 1;
+            PeriodUrlValues["periodNum"] = PeriodModel.CurrentPeriod == PeriodModel.TotalPeriods ? 1 : PeriodModel.CurrentPeriod + 1;
+            PeriodUrlValues["year"] = PeriodModel.CurrentPeriod == PeriodModel.TotalPeriods ? PeriodModel.CurrentYear + 1 : PeriodModel.CurrentYear;
             tag.Attributes["href"] = urlHelper.Action(PageAction, PeriodUrlValues);
+            tag.AddCssClass(PeriodClass);
             tag.InnerHtml.Append(" > ");
             result.InnerHtml.AppendHtml(tag);
 

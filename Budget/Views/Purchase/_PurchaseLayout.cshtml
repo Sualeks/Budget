@@ -1,0 +1,17 @@
+﻿@model PurchaseViewModel
+
+@{ 
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row m-1 p-1">
+    <div id="periods" class="col-3">
+        @await Component.InvokeAsync("NavigationMenu", Model.PeriodInfo)
+    </div>
+
+    <div class="col-9">
+        @RenderBody()
+    </div>
+</div>
+
+

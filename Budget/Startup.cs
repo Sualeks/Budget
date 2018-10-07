@@ -57,7 +57,7 @@ namespace Budget
                     routes.MapRoute(
                         name: null,
                         template: "",
-                        defaults: new { Controller = "Purchase", Action = "Purchase", period = 1, periodNum = 1 });
+                        defaults: new { Controller = "Purchase", Action = "Purchase", period = 1, periodNum = DateTime.Now.DayOfYear, year = DateTime.Now.Year  });
 
                     routes.MapRoute(
                         name: "default",
